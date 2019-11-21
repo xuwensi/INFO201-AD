@@ -26,7 +26,8 @@ my_ui <- navbarPage(
     "Vis1: Geographic Map",
     titlePanel("Number of accidents happened by location on map"),
     mainPanel(
-      leafletOutput(outputId = "geo_map")
+      leafletOutput(outputId = "geo_map"),
+      tableOutput(outputId = "map_table")
     ),
     h3("From the map, we can tell that f1 accidents have occured all over the world, with the majority of concentrations occured in Europe. This is becuase as of currently 10 out of the 20 F1 races happening per year are located in Europe. This is shown in one of the track with the most history in F1, Silverstone, located in England, with 522 accidents that have occured"),
   ),

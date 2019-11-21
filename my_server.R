@@ -72,6 +72,33 @@ my_server <- function(input, output) {
         mapping = aes(x = year, y = n, fill = year)
       ) + ylab("total number of injury and collision")
   })
+  
+  output$map_table <- renderTable({
+    table <- result_df %>%
+      left_join(race_df, by = "raceId") %>%
+      left_join(circuit_df, by = "circuitId") %>%
+      left_join(status_df, by = "statusId") %>%
+      filter(
+        status != "Finished",
+        !grepl("Lap", status),
+        status != "Did not qualify"
+      ) %>%
+      select(
+        country,
+        status
+      ) %>%
+      group_by(country) %>%
+      summarise(num_accident = n()) %>%
+      left_join(circuit_df, by = "country") %>%
+      select(
+        country,
+        num_accident
+      )
+    table <- distinct(table)
+    
+    colnames(table) <- c("Country", "Total Number of Accident Happened") 
+    table
+  })
 }
 
 shinyApp(ui = my_ui, server = my_server)
