@@ -42,7 +42,7 @@ my_server <- function(input, output) {
       addCircles(
         lat = ~lat,
         lng = ~lng,
-        radius = 50000,
+        radius = ~sqrt(num_accident) * 7000,
         color = "red",
         popup = ~ paste(
           "Circuit name: ", circuitRef, "<br>",
@@ -62,7 +62,7 @@ my_server <- function(input, output) {
     analysis <- results %>%
       inner_join(status, by = "statusId") %>%
       inner_join(races, by = "raceId") %>%
-      filter(status == "Injury" | status == "Injured" | status == "Fatal accident" | status == "Eye injury" | status == "Collision") %>%
+      filter(status == "Injury" | status == "Injured" | status == "Fatal accident" | status == "Eye injury" | status == "Collision" | status == "Accident") %>%
       group_by(year) %>%
       count(.) %>%
       filter(year >= 1970)
