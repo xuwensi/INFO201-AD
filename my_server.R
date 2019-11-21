@@ -11,7 +11,7 @@ my_server <- function(input, output) {
     result_df <- read.csv("data/results.csv", stringsAsFactors = FALSE)
     status_df <- read.csv("data/status.csv", stringsAsFactors = FALSE)
     race_df <- read.csv("data/races.csv", stringsAsFactors = FALSE)
-    
+
     geo_df <- result_df %>%
       left_join(race_df, by = "raceId") %>%
       left_join(circuit_df, by = "circuitId") %>%
@@ -36,17 +36,17 @@ my_server <- function(input, output) {
         lng,
         num_accident
       )
-    
+
     leaflet(data = geo_df) %>%
       addProviderTiles("CartoDB.Positron") %>%
       addCircles(
         lat = ~lat,
         lng = ~lng,
-        radius = ~sqrt(num_accident) * 7000,
+        radius = ~ sqrt(num_accident) * 7000,
         color = "red",
         popup = ~ paste(
           "Circuit name: ", circuitRef, "<br>",
-          "Country: ", country, "<br>", 
+          "Country: ", country, "<br>",
           "Location: ", location, "<br>",
           "Number of accidents happened: ", num_accident
         ),
@@ -58,7 +58,7 @@ my_server <- function(input, output) {
     status <- read.csv("data/status.csv", stringsAsFactors = FALSE)
     races <- read.csv("data/races.csv", stringsAsFactors = FALSE)
     results <- read.csv("data/results.csv", stringsAsFactors = FALSE)
-    
+
     analysis <- results %>%
       inner_join(status, by = "statusId") %>%
       inner_join(races, by = "raceId") %>%
@@ -66,13 +66,13 @@ my_server <- function(input, output) {
       group_by(year) %>%
       count(.) %>%
       filter(year >= input$slider1)
-    
+
     ggplot(data = analysis) +
       geom_col(
         mapping = aes(x = year, y = n, fill = year)
       ) + ylab("total number of injury and collision")
   })
-  
+
   output$map_table <- renderTable({
     table <- result_df %>%
       left_join(race_df, by = "raceId") %>%
@@ -95,8 +95,8 @@ my_server <- function(input, output) {
         num_accident
       )
     table <- distinct(table)
-    
-    colnames(table) <- c("Country", "Total Number of Accident Happened") 
+
+    colnames(table) <- c("Country", "Total Number of Accident Happened")
     table
   })
 }

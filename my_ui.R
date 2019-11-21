@@ -9,10 +9,10 @@ my_ui <- navbarPage(
   tabPanel(
     "Introduction",
     img(src = "https://specials-images.forbesimg.com/imageserve/1023761676/960x0.jpg?fit=scale"),
-    h3("This project is aiming to analyze how safety has improved every decade for Formula 1 races. We think this is an important issue because Formula 1 is one of the top racing shows in the country; which means that there are thousands of viewers. People watch these shows but seldom think about the risks associated with racing going hundreds of miles per hour. Every piece of the car and passing every protocol counts. It is extremely distressing to see a racer lose their life on live television, therefore having a website that condenses and presents all of the previous data and trends to hopefully help the direct stakeholders understand how to continuously prevent accidents from occuring."), 
+    h3("This project is aiming to analyze how safety has improved every decade for Formula 1 races. We think this is an important issue because Formula 1 is one of the top racing shows in the country; which means that there are thousands of viewers. People watch these shows but seldom think about the risks associated with racing going hundreds of miles per hour. Every piece of the car and passing every protocol counts. It is extremely distressing to see a racer lose their life on live television, therefore having a website that condenses and presents all of the previous data and trends to hopefully help the direct stakeholders understand how to continuously prevent accidents from occuring."),
     h3("We will be addressing the problem by visualizing the trends of car accidents throughout the decades of F1. By showcasing the trend and providing a universal point for all of the data, the direct workers for F1 can look into this data and see where their new measures were effective and ineffective for increasing safety for drivers. We will also be data wrangling the different dataset from each decade of F1 and join them by their ID column to compare the data."),
   ),
-  
+
   tabPanel(
     "Background & Research Questions",
     h3("Our direct stakeholders are the F1 drivers, the workers on their teams, their companies, and manufacturers of the cars and the parts. The indirect stakeholders are the viewers and families of racers. The policy and ethical elements bear on the problem Is that whether sacrificing safety worth the financial costs and program aesthetics."),
@@ -21,7 +21,7 @@ my_ui <- navbarPage(
     h3("- How has the number of crashes and deaths decreased throughout the decades?"),
     h3("- What caused the increase or decrease in deaths and risk in the F1 races?")
   ),
-  
+
   tabPanel(
     "Vis1: Geographic Map",
     titlePanel("Number of accidents happened by location on map"),
@@ -31,7 +31,7 @@ my_ui <- navbarPage(
     ),
     h3("From the map, we can tell that f1 accidents have occured all over the world, with the majority of concentrations occured in Europe. This is becuase as of currently 10 out of the 20 F1 races happening per year are located in Europe. This is shown in one of the track with the most history in F1, Silverstone, located in England, with 522 accidents that have occured"),
   ),
-  
+
   tabPanel(
     "Vis2: Bar Chart",
     fluidPage(
@@ -39,31 +39,39 @@ my_ui <- navbarPage(
       mainPanel(
         plotOutput(outputId = "bar_chart"),
       ),
-      column(4,
-             sliderInput("slider1", label = h3("Select the Beginning year"), min = 1970, 
-                         max = 2017, value = 50)
+      column(
+        4,
+        sliderInput("slider1",
+          label = h3("Select the Beginning year"), min = 1970,
+          max = 2017, value = 50
+        )
       ),
-      ),
-    h3("This is a chart of accidents, collison, and injuries that have occured over the history of Formula 1 from 1970 to 2017. The bars are colored in the darkest blue as the earliest years and the lightest blue to the most recent years. From the graph, it answers that Formula 1 has increased its safety from its earlier years due to safety changes, which is clearly shwon through the negative correlation between accidents and years."),
-    
     ),
-   
-  
+    h3("This is a chart of accidents, collison, and injuries that have occured over the history of Formula 1 from 1970 to 2017. The bars are colored in the darkest blue as the earliest years and the lightest blue to the most recent years. From the graph, it answers that Formula 1 has increased its safety from its earlier years due to safety changes, which is clearly shwon through the negative correlation between accidents and years."),
+  ),
+
   tabPanel(
     "Conclusion",
-    h3("#Conclusion")
+    h3("Strengths: Our data and evidence showcase a strong trend, which means that we have a strong correlation case for determining what factors may have led to increased safety."),  
+    h3("Weaknesses: Although there are a lot of viewers watching F1, the problem we are discussing does not tackle hot issues such as homelessness or environmental disturbances. Therefore, we were pretty limited to legitimate and relatable data sources. The F1 data on the website mainly just provided a list of differences made, but no evidence of the solid data backing up how those changes decreased safety risks."),   
+    h3("Learned lessons: We learned that even though we get data straight from reliable sources, we still need to be cautious with what we are wrangling from the data set to prevent unnecessary overload of information that does not pertain to our topic. We also learned that certain parts of the dataset can be "spotty", which caused us to look for different column relationships."),     
+    h3("Future work: Maybe people who have the desire to look further into the data about safety for F1 can go more in-depth with their research to not only find the correlation between safety changes and the number of accidents but also find a correlation to specific changes such as maybe engine sizes to present a more detailed case.")   
   ),
   
   tabPanel(
     "About the Tech",
-    
-    h3("tech used")
+    h3("We downloaded our data as CSV files from Kaggle. The packages we used in this project are "dplyr", "knitr", "ggplot2", "leaflet" and "shiny". We created a data folder and stored all the CSV files in the folder. We created "my_ui.R" and "my_server.R" to store the codes of the user interface and server. Two graphs were created: a geographical map and a bar chart. The geographical map shows the number of injuries in different locations, providing our users with a more detailed and easily understandable visualization. The bar chart compared the total number of injuries and collisions by years, showing the users how safety has been improved in formula one."),
+    a("Link to Technical Report", href = "https://github.com/xuwensi/INFO201-AD/wiki/ProjectProposal")
   ),
   
   tabPanel(
-    "About us"
-    # something about project team
+    "About us",
+    h3("Team members: Wensi Xu, Kelvin Kam, Chris Yee, Hannah Shin"),
+    h3("Contact Info:"),
+    h3("Wensi : wensix@uw.edu"),
+    h3("Hannah: hshin8461@gmail.com"),
+    h3("Chris: cyee20@uw.edu"),
+    h3("Kelvin: kelvinka@uw.edu ")
   )
 )
-
 
