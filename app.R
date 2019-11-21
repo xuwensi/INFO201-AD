@@ -12,7 +12,7 @@ my_ui <- navbarPage(
     h3("This project is aiming to analyze how safety has improved every decade for Formula 1 races. We think this is an important issue because Formula 1 is one of the top racing shows in the country; which means that there are thousands of viewers. People watch these shows but seldom think about the risks associated with racing going hundreds of miles per hour. Every piece of the car and passing every protocol counts. It is extremely distressing to see a racer lose their life on live television, therefore having a website that condenses and presents all of the previous data and trends to hopefully help the direct stakeholders understand how to continuously prevent accidents from occuring."),
     h3("We will be addressing the problem by visualizing the trends of car accidents throughout the decades of F1. By showcasing the trend and providing a universal point for all of the data, the direct workers for F1 can look into this data and see where their new measures were effective and ineffective for increasing safety for drivers. We will also be data wrangling the different dataset from each decade of F1 and join them by their ID column to compare the data."),
   ),
-
+  
   tabPanel(
     "Background & Research Questions",
     h3("Our direct stakeholders are the F1 drivers, the workers on their teams, their companies, and manufacturers of the cars and the parts. The indirect stakeholders are the viewers and families of racers. The policy and ethical elements bear on the problem Is that whether sacrificing safety worth the financial costs and program aesthetics."),
@@ -21,7 +21,7 @@ my_ui <- navbarPage(
     h3("- How has the number of crashes and deaths decreased throughout the decades?"),
     h3("- What caused the increase or decrease in deaths and risk in the F1 races?")
   ),
-
+  
   tabPanel(
     "Vis1: Geographic Map",
     titlePanel("Number of accidents happened by location on map"),
@@ -31,7 +31,7 @@ my_ui <- navbarPage(
     ),
     h3("From the map, we can tell that f1 accidents have occured all over the world, with the majority of concentrations occured in Europe. This is becuase as of currently 10 out of the 20 F1 races happening per year are located in Europe. This is shown in one of the track with the most history in F1, Silverstone, located in England, with 522 accidents that have occured"),
   ),
-
+  
   tabPanel(
     "Vis2: Bar Chart",
     fluidPage(
@@ -42,14 +42,14 @@ my_ui <- navbarPage(
       column(
         4,
         sliderInput("slider1",
-          label = h3("Select the Beginning year"), min = 1970,
-          max = 2017, value = 50
+                    label = h3("Select the Beginning year"), min = 1970,
+                    max = 2017, value = 50
         )
       ),
     ),
     h3("This is a chart of accidents, collison, and injuries that have occured over the history of Formula 1 from 1970 to 2017. The bars are colored in the darkest blue as the earliest years and the lightest blue to the most recent years. From the graph, it answers that Formula 1 has increased its safety from its earlier years due to safety changes, which is clearly shwon through the negative correlation between accidents and years."),
   ),
-
+  
   tabPanel(
     "Conclusion",
     h3("Strengths: Our data and evidence showcase a strong trend, which means that we have a strong correlation case for determining what factors may have led to increased safety."),  
@@ -75,3 +75,104 @@ my_ui <- navbarPage(
   )
 )
 
+my_server <- function(input, output) {
+  output$geo_map <- renderLeaflet({
+    circuit_df <- read.csv("data/circuits.csv", stringsAsFactors = FALSE)
+    result_df <- read.csv("data/results.csv", stringsAsFactors = FALSE)
+    status_df <- read.csv("data/status.csv", stringsAsFactors = FALSE)
+    race_df <- read.csv("data/races.csv", stringsAsFactors = FALSE)
+    
+    geo_df <- result_df %>%
+      left_join(race_df, by = "raceId") %>%
+      left_join(circuit_df, by = "circuitId") %>%
+      left_join(status_df, by = "statusId") %>%
+      filter(
+        status != "Finished",
+        !grepl("Lap", status),
+        status != "Did not qualify"
+      ) %>%
+      select(
+        location,
+        status
+      ) %>%
+      group_by(location) %>%
+      summarise(num_accident = n()) %>%
+      left_join(circuit_df, by = "location") %>%
+      select(
+        circuitRef,
+        location,
+        country,
+        lat,
+        lng,
+        num_accident
+      )
+    
+    leaflet(data = geo_df) %>%
+      addProviderTiles("CartoDB.Positron") %>%
+      addCircles(
+        lat = ~lat,
+        lng = ~lng,
+        radius = ~ sqrt(num_accident) * 7000,
+        color = "red",
+        popup = ~ paste(
+          "Circuit name: ", circuitRef, "<br>",
+          "Country: ", country, "<br>",
+          "Location: ", location, "<br>",
+          "Number of accidents happened: ", num_accident
+        ),
+        stroke = FALSE
+      )
+  })
+  
+  output$bar_chart <- renderPlot({
+    status <- read.csv("data/status.csv", stringsAsFactors = FALSE)
+    races <- read.csv("data/races.csv", stringsAsFactors = FALSE)
+    results <- read.csv("data/results.csv", stringsAsFactors = FALSE)
+    
+    analysis <- results %>%
+      inner_join(status, by = "statusId") %>%
+      inner_join(races, by = "raceId") %>%
+      filter(status == "Injury" | status == "Injured" | status == "Fatal accident" | status == "Eye injury" | status == "Collision" | status == "Accident") %>%
+      group_by(year) %>%
+      count(.) %>%
+      filter(year >= input$slider1)
+    
+    ggplot(data = analysis) +
+      geom_col(
+        mapping = aes(x = year, y = n, fill = year)
+      ) + ylab("total number of injury and collision")
+  })
+  
+  output$map_table <- renderTable({
+    circuit_df <- read.csv("data/circuits.csv", stringsAsFactors = FALSE)
+    result_df <- read.csv("data/results.csv", stringsAsFactors = FALSE)
+    status_df <- read.csv("data/status.csv", stringsAsFactors = FALSE)
+    race_df <- read.csv("data/races.csv", stringsAsFactors = FALSE)
+    table <- result_df %>%
+      left_join(race_df, by = "raceId") %>%
+      left_join(circuit_df, by = "circuitId") %>%
+      left_join(status_df, by = "statusId") %>%
+      filter(
+        status != "Finished",
+        !grepl("Lap", status),
+        status != "Did not qualify"
+      ) %>%
+      select(
+        country,
+        status
+      ) %>%
+      group_by(country) %>%
+      summarise(num_accident = n()) %>%
+      left_join(circuit_df, by = "country") %>%
+      select(
+        country,
+        num_accident
+      )
+    table <- distinct(table)
+    
+    colnames(table) <- c("Country", "Total Number of Accident Happened")
+    table
+  })
+}
+
+shinyApp(ui = my_ui, server = my_server)

@@ -1,0 +1,13 @@
+name: INFO201-AD
+title: INFO201-AD
+username:
+account: xuwensi
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 1505211
+bundleId: 2606393
+url: https://xuwensi.shinyapps.io/INFO201-AD/
+when: 1574321864.81255
+asMultiple: FALSE
+asStatic: FALSE
+ignoredFiles: my_server.R|my_ui.R
