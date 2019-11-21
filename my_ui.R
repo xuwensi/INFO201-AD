@@ -28,17 +28,25 @@ my_ui <- navbarPage(
     mainPanel(
       leafletOutput(outputId = "geo_map")
     ),
-    h3("From the map, we can tell that f1 accidents have occured all over the world, with the majority of concentrations occured in Europe. This is becuase as of currently 10 out of the 20 F1 races happening per year are located in Europe. This is shown in one of the track with the most history in F1, Silverstone, located in England, with 522 accidents that have occured")
+    h3("From the map, we can tell that f1 accidents have occured all over the world, with the majority of concentrations occured in Europe. This is becuase as of currently 10 out of the 20 F1 races happening per year are located in Europe. This is shown in one of the track with the most history in F1, Silverstone, located in England, with 522 accidents that have occured"),
   ),
   
   tabPanel(
     "Vis2: Bar Chart",
-    titlePanel("Collision, Injuries, and fatality year over year comparison"),
-    mainPanel(
-      plotOutput(outputId = "bar_chart"),
+    fluidPage(
+      titlePanel("Collision, Injuries, and fatality year over year comparison"),
+      mainPanel(
+        plotOutput(outputId = "bar_chart"),
+      ),
+      column(4,
+             sliderInput("slider1", label = h3("Select the Beginning year"), min = 1970, 
+                         max = 2017, value = 50)
+      ),
+      ),
+    h3("This is a chart of accidents, collison, and injuries that have occured over the history of Formula 1 from 1970 to 2017. The bars are colored in the darkest blue as the earliest years and the lightest blue to the most recent years. From the graph, it answers that Formula 1 has increased its safety from its earlier years due to safety changes, which is clearly shwon through the negative correlation between accidents and years."),
+    
     ),
-    h3("This is a chart of accidents, collison, and injuries that have occured over the history of Formula 1 from 1970 to 2017. The bars are colored in the darkest blue as the earliest years and the lightest blue to the most recent years. From the graph, it answers that Formula 1 has increased its safety from its earlier years due to safety changes, which is clearly shwon through the negative correlation between accidents and years.")
-  ),
+   
   
   tabPanel(
     "Conclusion",

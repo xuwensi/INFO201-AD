@@ -53,7 +53,7 @@ my_server <- function(input, output) {
         stroke = FALSE
       )
   })
-  
+
   output$bar_chart <- renderPlot({
     status <- read.csv("data/status.csv", stringsAsFactors = FALSE)
     races <- read.csv("data/races.csv", stringsAsFactors = FALSE)
@@ -65,7 +65,7 @@ my_server <- function(input, output) {
       filter(status == "Injury" | status == "Injured" | status == "Fatal accident" | status == "Eye injury" | status == "Collision" | status == "Accident") %>%
       group_by(year) %>%
       count(.) %>%
-      filter(year >= 1970)
+      filter(year >= input$slider1)
     
     ggplot(data = analysis) +
       geom_col(
