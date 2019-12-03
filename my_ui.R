@@ -148,7 +148,7 @@ my_ui <- navbarPage(
   tabPanel(
     "About the Tech",
     h3("We downloaded our data as CSV files from Kaggle. The packages we used in this project are dplyr, knitr, ggplot2, leaflet and shiny. We created a data folder and stored all the CSV files in the folder. We created my_ui.R and my_server.R to store the codes of the user interface and server. Two graphs were created: a geographical map and a bar chart. The geographical map shows the number of injuries in different locations, providing our users with a more detailed and easily understandable visualization. The bar chart compared the total number of injuries and collisions by years, showing the users how safety has been improved in formula one."),
-    a("Link to Technical Report", href = "https://github.com/xuwensi/INFO201-AD/wiki/ProjectProposal")
+    a("Link to Technical Report", href = "https://github.com/xuwensi/INFO201-AD/wiki/TechnicalReport")
   ),
   
   tabPanel(

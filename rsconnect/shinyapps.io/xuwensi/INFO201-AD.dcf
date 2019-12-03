@@ -5,9 +5,8 @@ account: xuwensi
 server: shinyapps.io
 hostUrl: https://api.shinyapps.io/v1
 appId: 1505211
-bundleId: 2606393
+bundleId: 2635375
 url: https://xuwensi.shinyapps.io/INFO201-AD/
-when: 1574321864.81255
+when: 1575364414.83106
 asMultiple: FALSE
 asStatic: FALSE
-ignoredFiles: my_server.R|my_ui.R
