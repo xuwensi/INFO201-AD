@@ -2,3 +2,4 @@ Formula 1 is one of the top racing shows in the country, which means that there 
 
 [Project Proposal](https://github.com/xuwensi/INFO201-AD/wiki/ProjectProposal)    
 [Technical Report](https://github.com/xuwensi/INFO201-AD/wiki/TechnicalReport)
+[Link to ShinyApp](https://xuwensi.shinyapps.io/INFO201-AD/)
