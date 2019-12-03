@@ -9,17 +9,51 @@ my_ui <- navbarPage(
   tabPanel(
     "Introduction",
     img(src = "https://specials-images.forbesimg.com/imageserve/1023761676/960x0.jpg?fit=scale"),
-    h3("This project is aiming to analyze how safety has improved every decade for Formula 1 races. We think this is an important issue because Formula 1 is one of the top racing shows in the country; which means that there are thousands of viewers. People watch these shows but seldom think about the risks associated with racing going hundreds of miles per hour. Every piece of the car and passing every protocol counts. It is extremely distressing to see a racer lose their life on live television, therefore having a website that condenses and presents all of the previous data and trends to hopefully help the direct stakeholders understand how to continuously prevent accidents from occuring."),
+    h3("This project is aiming to analyze how safety
+       has improved every decade for Formula 1 races.
+       We think this is an important issue because
+       Formula 1 is one of the top racing shows in
+       the country; which means that there are thousands
+       of viewers. People watch these shows but seldom
+       think about the risks associated with racing going
+       hundreds of miles per hour. Every piece of the car
+       and passing every protocol counts. It is extremely
+       distressing to see a racer lose their life on live
+       television, therefore having a website that
+       condenses and presents all of the previous data
+       and trends to hopefully help the direct stakeholders
+       understand how to continuously prevent accidents
+       from occuring."),
     h3("We will be addressing the problem by visualizing the trends of car accidents throughout the decades of F1. By showcasing the trend and providing a universal point for all of the data, the direct workers for F1 can look into this data and see where their new measures were effective and ineffective for increasing safety for drivers. We will also be data wrangling the different dataset from each decade of F1 and join them by their ID column to compare the data."),
   ),
 
   tabPanel(
     "Background & Research Questions",
-    h3("Our direct stakeholders are the F1 drivers, the workers on their teams, their companies, and manufacturers of the cars and the parts. The indirect stakeholders are the viewers and families of racers. The policy and ethical elements bear on the problem Is that whether sacrificing safety worth the financial costs and program aesthetics."),
-    h3("Research questions:"),
-    h3("- How many lives were impacted or sacrificed purely for the sake of aesthetics and/or money?"),
-    h3("- How has the number of crashes and deaths decreased throughout the decades?"),
-    h3("- What caused the increase or decrease in deaths and risk in the F1 races?")
+    tabsetPanel(type = "tab",
+                tabPanel("Background",
+                        h3("Our direct stakeholders are the
+                           F1 drivers, the workers on their
+                           teams, their companies, and manufacturers
+                           of the cars and the parts. The indirect
+                           stakeholders are the viewers and families
+                           of racers. The policy and ethical elements
+                           bear on the problem Is that whether
+                           sacrificing safety worth the financial
+                           costs and program aesthetics.")
+                ),
+                tabPanel("Research questions",
+                         h3("- How many lives were impacted
+                            or sacrificed purely for the sake
+                            of aesthetics and/or money?"),
+                         h3("- How has the number of crashes
+                            and deaths decreased throughout
+                            the decades?"),
+                         h3("- What caused the increase or
+                            decrease in deaths and risk in
+                            the F1 races?")
+                )
+                
+    )
   ),
 
   tabPanel(
@@ -47,15 +81,68 @@ my_ui <- navbarPage(
         )
       ),
     ),
-    h3("This is a chart of accidents, collison, and injuries that have occured over the history of Formula 1 from 1970 to 2017. The bars are colored in the darkest blue as the earliest years and the lightest blue to the most recent years. From the graph, it answers that Formula 1 has increased its safety from its earlier years due to safety changes, which is clearly shwon through the negative correlation between accidents and years."),
+    h3("This is a chart of accidents, collison, and
+       injuries that have occured over the history
+       of Formula 1 from 1970 to 2017. The bars are
+       colored in the darkest blue as the earliest
+       years and the lightest blue to the most recent
+       years. From the graph, it answers that Formula
+       1 has increased its safety from its earlier
+       years due to safety changes, which is clearly
+       shwon through the negative correlation between
+       accidents and years."),
   ),
 
   tabPanel(
     "Conclusion",
-    h3("Strengths: Our data and evidence showcase a strong trend, which means that we have a strong correlation case for determining what factors may have led to increased safety."),  
-    h3("Weaknesses: Although there are a lot of viewers watching F1, the problem we are discussing does not tackle hot issues such as homelessness or environmental disturbances. Therefore, we were pretty limited to legitimate and relatable data sources. The F1 data on the website mainly just provided a list of differences made, but no evidence of the solid data backing up how those changes decreased safety risks."),   
-    h3("Learned lessons: We learned that even though we get data straight from reliable sources, we still need to be cautious with what we are wrangling from the data set to prevent unnecessary overload of information that does not pertain to our topic. We also learned that certain parts of the dataset can be spotty, which caused us to look for different column relationships."),     
-    h3("Future work: Maybe people who have the desire to look further into the data about safety for F1 can go more in-depth with their research to not only find the correlation between safety changes and the number of accidents but also find a correlation to specific changes such as maybe engine sizes to present a more detailed case.")   
+    tabsetPanel(type = "tab",
+                tabPanel("Strengths",
+                          h3("Our data and evidence
+                             showcase a strong trend, which
+                             means that we have a strong
+                             correlation case for determining
+                             what factors may have led to
+                             increased safety.") 
+                ),
+                tabPanel("Weaknesses",
+                         h3("Although there are a
+                            lot of viewers watching
+                            F1, the problem we are
+                            discussing does not tackle hot
+                            issues such as homelessness or
+                            environmental disturbances.
+                            Therefore, we were pretty limited
+                            to legitimate and relatable data
+                            sources. The F1 data on the website
+                            mainly just provided a list of
+                            differences made, but no evidence
+                            of the solid data backing up how
+                            those changes decreased safety risks.")
+                         ),
+                tabPanel("Learned lessons",
+                         h3("We learned that even though we get
+                            data straight from reliable sources,
+                            we still need to be cautious with what
+                            we are wrangling from the data set to
+                            prevent unnecessary overload of
+                            information that does not pertain to
+                            our topic. We also learned that certain
+                            parts of the dataset can be spotty,
+                            which caused us to look for different
+                            column relationships.")
+                         ),
+                tabPanel("Future work",
+                         h3("Maybe people who have the desire to
+                            look further into the data about
+                            safety for F1 can go more in-depth
+                            with their research to not only find
+                            the correlation between safety changes
+                            and the number of accidents but also
+                            find a correlation to specific changes
+                            such as maybe engine sizes to present
+                            a more detailed case.")   
+                )
+                )
   ),
   
   tabPanel(

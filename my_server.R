@@ -74,6 +74,10 @@ my_server <- function(input, output) {
   })
 
   output$map_table <- renderTable({
+    circuit_df <- read.csv("data/circuits.csv", stringsAsFactors = FALSE)
+    result_df <- read.csv("data/results.csv", stringsAsFactors = FALSE)
+    status_df <- read.csv("data/status.csv", stringsAsFactors = FALSE)
+    race_df <- read.csv("data/races.csv", stringsAsFactors = FALSE)
     table <- result_df %>%
       left_join(race_df, by = "raceId") %>%
       left_join(circuit_df, by = "circuitId") %>%
@@ -100,5 +104,3 @@ my_server <- function(input, output) {
     table
   })
 }
-
-shinyApp(ui = my_ui, server = my_server)
